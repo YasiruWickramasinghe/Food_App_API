@@ -34,7 +34,7 @@ model Food {
   createdAt DateTime @default(now()) // Timestamp of food item creation.
   updatedAt DateTime @updatedAt // Timestamp of last update.
 
-  food_name       String // Name of the food item.
+  foodName       String // Name of the food item.
   description String? // Description of the food item (optional).
   price         String // Price of the food item.
 
