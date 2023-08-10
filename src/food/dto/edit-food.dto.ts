@@ -4,16 +4,19 @@ import {
   IsString,
 } from 'class-validator';
 
+// DTO (Data Transfer Object) used for editing food item information.
 export class EditFoodDto {
-  @IsString()
-  @IsOptional()
-  foodName?: string;
+  // Property must be a string.
+  @IsString()   
+  // Property is optional.     
+  @IsOptional()      
+  foodName?: string; 
 
-  @IsString()
-  @IsOptional()
-  description?: string;
+  @IsString()        
+  @IsOptional()      
+  description?: string; 
 
-  @IsString()
-  @IsOptional()
-  price?: string;
+  @IsString()        
+  @IsOptional()      
+  price?: string;    
 }

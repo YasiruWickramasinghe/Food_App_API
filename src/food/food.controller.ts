@@ -16,27 +16,31 @@ import { FoodService } from './food.service';
 import { GetUser } from 'src/auth/decorator';
 import { CreateFoodDto, EditFoodDto } from './dto';
 
+// Apply JwtGuard authentication to all routes in this controller.
 @UseGuards(JwtGuard)
-@Controller('foods')
+@Controller('foods') 
 export class FoodController {
 
     constructor(
         private foodService: FoodService,
     ) { }
 
-    @Get()
+    // Handle GET request to '/foods' route.
+    @Get() 
     getAllFoods() {
-        return this.foodService.getAllFoods();
+        return this.foodService.getAllFoods(); // Retrieve all food items.
     }
 
-    @Get('user')
+    // Handle GET request to '/foods/user' route.
+    @Get('user') 
     getFoodsByUserId(@GetUser('id') userId: number) {
         return this.foodService.getFoodsByUserId(
             userId,
-        );
+        ); // Retrieve food items by user ID.
     }
 
-    @Get(':id')
+    // Handle GET request to '/foods/:id' route.
+    @Get(':id') 
     getFoodByBookId(
         @GetUser('id') userId: number,
         @Param('id', ParseIntPipe) foodId: number,
@@ -44,10 +48,11 @@ export class FoodController {
         return this.foodService.getFoodByBookId(
             userId,
             foodId,
-        );
+        ); // Retrieve a specific food item by user and food ID.
     }
 
-    @Post()
+    // Handle POST request to '/foods' route.
+    @Post() 
     createFood(
         @GetUser('id') userId: number,
         @Body() dto: CreateFoodDto,
@@ -55,10 +60,11 @@ export class FoodController {
         return this.foodService.createFood(
             userId,
             dto,
-        );
+        ); // Create a new food item associated with a user.
     }
 
-    @Patch(':id')
+    // Handle PATCH request to '/foods/:id' route.
+    @Patch(':id') 
     editFoodById(
         @GetUser('id') userId: number,
         @Param('id', ParseIntPipe) foodId: number,
@@ -68,11 +74,12 @@ export class FoodController {
             userId,
             foodId,
             dto,
-        );
+        ); // Edit a food item's details by user and food ID.
     }
 
+    // Handle DELETE request to '/foods/:id' route.
     @HttpCode(HttpStatus.NO_CONTENT)
-    @Delete(':id')
+    @Delete(':id') 
     deleteFoodById(
         @GetUser('id') userId: number,
         @Param('id', ParseIntPipe) foodId: number,
@@ -80,6 +87,6 @@ export class FoodController {
         return this.foodService.deleteFoodById(
             userId,
             foodId,
-        );
+        ); // Delete a food item based on user and food ID.
     }
 }

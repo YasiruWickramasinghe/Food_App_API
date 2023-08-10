@@ -2,26 +2,26 @@
 
 // Define the MySQL database connection.
 datasource db {
-  provider = "mysql" // Specifies the database provider as MySQL.
-  url      = env("DATABASE_URL") // Uses the environment variable DATABASE_URL for connection.
+  provider = "mysql" 
+  url      = env("DATABASE_URL") 
 }
 
 // Generate Prisma Client code for interacting with the database.
 generator client {
-  provider = "prisma-client-js" // Generates a JavaScript Prisma Client.
+  provider = "prisma-client-js" 
 }
 
 // Define the User model.
 model User {
-  id        Int      @id @default(autoincrement()) // Unique identifier for the user.
-  createdAt DateTime @default(now()) // Timestamp of user creation.
-  updatedAt DateTime @updatedAt // Timestamp of last update.
+  id        Int      @id @default(autoincrement()) 
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt 
 
-  email String @unique // User's email address (unique).
-  hash  String // Hashed password for user authentication.
+  email String @unique 
+  hash  String 
 
-  firstName String? // User's first name (optional).
-  lastName  String? // User's last name (optional).
+  firstName String? 
+  lastName  String? 
 
   foods Food[] // Relationship to associated Food items.
 
@@ -30,13 +30,13 @@ model User {
 
 // Define the Food model.
 model Food {
-  id        Int      @id @default(autoincrement()) // Unique identifier for the food item.
-  createdAt DateTime @default(now()) // Timestamp of food item creation.
-  updatedAt DateTime @updatedAt // Timestamp of last update.
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt
 
-  foodName       String // Name of the food item.
-  description String? // Description of the food item (optional).
-  price         String // Price of the food item.
+  foodName       String 
+  description String? 
+  price         String 
 
   userId Int // Foreign key to associate a User with the food item.
   user   User @relation(fields: [userId], references: [id]) // Relationship to the User model.

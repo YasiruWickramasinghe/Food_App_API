@@ -4,10 +4,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategy';
 
-
 @Module({
-  imports: [JwtModule.register({})],
+  // Import and configure the JWT module.
+  imports: [JwtModule.register({})], 
+  // Specify the controller for handling authentication routes.
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy]
+  // Provide the authentication service and strategy.     
+  providers: [AuthService, JwtStrategy] 
 })
 export class AuthModule {}

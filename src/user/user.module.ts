@@ -3,7 +3,9 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
 @Module({
-  controllers: [UserController],
-  providers: [UserService]
+  // Specify the controller that handles user-related HTTP requests.
+  controllers: [UserController], 
+  // Provide the service responsible for user-related operations.
+  providers: [UserService]       
 })
 export class UserModule {}
