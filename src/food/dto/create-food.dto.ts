@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -18,7 +19,7 @@ export class CreateFoodDto {
   @IsOptional()
   description?: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  price: string;
+  price: number;
 }

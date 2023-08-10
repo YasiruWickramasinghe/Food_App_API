@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -16,7 +17,7 @@ export class EditFoodDto {
   @IsOptional()      
   description?: string; 
 
-  @IsString()        
+  @IsNumber()       
   @IsOptional()      
-  price?: string;    
+  price?: number;    
 }

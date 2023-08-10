@@ -36,7 +36,7 @@ model Food {
 
   foodName       String 
   description String? 
-  price         String 
+  price         Int 
 
   userId Int // Foreign key to associate a User with the food item.
   user   User @relation(fields: [userId], references: [id]) // Relationship to the User model.
