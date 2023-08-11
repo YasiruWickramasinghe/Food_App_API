@@ -27,6 +27,7 @@ JWT + PassportJS
 
     npx prisma migrate dev
     npx prisma migrate deploy
+  
 
 7.  then generate prisma using run this command
     

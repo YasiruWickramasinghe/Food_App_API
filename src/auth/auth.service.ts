@@ -32,7 +32,7 @@ export class AuthService {
             });
 
             // Return an access token.
-            return this.signToken(user.id, user.email);
+            return this.signToken(user.id, user.email, user.userRole);
         } catch (error) {
             // Handle specific database errors.
             if (
@@ -64,14 +64,15 @@ export class AuthService {
         if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
 
         // Return an access token.
-        return this.signToken(user.id, user.email);
+        return this.signToken(user.id, user.email, user.userRole);
     }
 
     // Sign a token with user ID and email, and return it.
-    async signToken(userId: number, email: string): Promise<{ access_token: string }> {
+    async signToken(userId: number, email: string, role: string): Promise<{ access_token: string }> {
         const payload = {
-            sub: userId, // Subject of the token (user ID).
-            email,       // Additional data (email).
+            sub: userId, 
+            email,       
+            roles: [role],
         };
         const secret = this.config.get('JWT_SECRET'); // Get the JWT secret from configuration.
 

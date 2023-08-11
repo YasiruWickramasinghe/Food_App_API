@@ -4,25 +4,33 @@ import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { UserService } from './user.service';
 import { EditUserDto } from './dto';
+import { RolesGuard } from './guard';
+import { Roles } from './decorator';
 
-@UseGuards(JwtGuard) // Apply JwtGuard authentication to all routes in this controller.
-@Controller('users') // Define the base route path for the controller.
+@UseGuards(JwtGuard)
+@Controller('users')
 export class UserController {
 
-    constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
-    // Handle GET request to '/users/me' route.
-    @Get('me') 
-    getMe(@GetUser() user: User) {
-      return user; 
-    } // Return the authenticated user's information.
+  @UseGuards(RolesGuard)
+  @Roles('admin')
+  @Get()
+  getAllUser() {
+    return this.userService.getAllUsers();
+  }
 
-    // Handle PATCH request to '/users/:id' route.
-    @Patch(':id') 
-    editUser(
-      @GetUser('id') userId: number, 
-      @Body() dto: EditUserDto,      
-    ) {
-      return this.userService.editUser(userId, dto); 
-    } // Delegate user editing to the UserService.
+  @Get('me')
+  getMe(@GetUser() user: User) {
+    return user;
+  }
+
+  @Patch(':id')
+  editUser(
+    @GetUser() user: User,
+    @Param('id', ParseIntPipe) userId: number,
+    @Body() dto: EditUserDto,
+  ) {
+    return this.userService.editUser(user, userId, dto);
+  }
 }

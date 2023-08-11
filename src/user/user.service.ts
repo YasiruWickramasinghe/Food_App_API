@@ -1,36 +1,63 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { EditUserDto } from './dto';
 import * as argon from 'argon2';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) { }
 
-  // Edit user details using the provided DTO.
-  async editUser(
-    userId: number,   // ID of the user to be edited.
-    dto: EditUserDto, // Data transfer object containing updated user information.
-  ) {
-
-    // Generate a secure password hash using Argon2.
-    const hash = await argon.hash(dto.password);
-
-    // Update user data in the database and retrieve the updated user.
-    const user = await this.prisma.user.update({
-      where: {
-        id: userId,    // Specify the user ID to identify the user.
+  getAllUsers() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        email: true,
+        userRole: true,
+        firstName: true,
+        lastName: true,        
       },
-      data: {
-        email: dto.email,
-        hash,           // Store the generated password hash.
-        firstName: dto.firstName,
-        lastName: dto.lastName
+    });
+  }
+
+  async editUser(
+    loggedInUser: User, // Correctly typed user object
+    userId: number,
+    dto: EditUserDto,
+  ) {
+    const userToUpdate = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
       },
     });
 
-    delete user.hash; // Remove the hash from the returned user object for security.
+    if (!userToUpdate) {
+      throw new NotFoundException('User not found');
+    }
 
-    return user;       // Return the updated user data.
+    // Check if the logged-in user is admin or is updating their own details
+    if (loggedInUser.userRole !== 'admin' && loggedInUser.id !== userId) {
+      throw new UnauthorizedException('You are not authorized to edit this user');
+    }
+
+    const hash = await argon.hash(dto.password);
+
+    const updatedUser = await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        email: dto.email,
+        hash,
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+      },
+    });
+
+    delete updatedUser.hash;
+
+    return updatedUser;
   }
 }

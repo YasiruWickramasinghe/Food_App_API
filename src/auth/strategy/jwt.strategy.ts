@@ -22,8 +22,9 @@ export class JwtStrategy extends PassportStrategy(
 
   // Validate method to verify the JWT token and retrieve user details.
   async validate(payload: {
-    sub: number;     // Subject of the token (user ID).
-    email: string;   // Additional data (email).
+    sub: number;     
+    email: string;   
+    role: string;
   }) {
     // Retrieve user details from the database using the user ID from the payload.
     const user = await this.prisma.user.findUnique({

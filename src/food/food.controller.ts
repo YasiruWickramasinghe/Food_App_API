@@ -15,6 +15,8 @@ import { JwtGuard } from 'src/auth/guard';
 import { FoodService } from './food.service';
 import { GetUser } from 'src/auth/decorator';
 import { CreateFoodDto, EditFoodDto } from './dto';
+import { RolesGuard } from 'src/user/guard';
+import { Roles } from 'src/user/decorator';
 
 // Apply JwtGuard authentication to all routes in this controller.
 @UseGuards(JwtGuard)
@@ -64,6 +66,8 @@ export class FoodController {
     }
 
     // Handle PATCH request to '/foods/:id' route.
+    @UseGuards(RolesGuard)
+    @Roles('admin')
     @Patch(':id') 
     editFoodById(
         @GetUser('id') userId: number,
@@ -79,6 +83,8 @@ export class FoodController {
 
     // Handle DELETE request to '/foods/:id' route.
     @HttpCode(HttpStatus.NO_CONTENT)
+    @UseGuards(RolesGuard)
+    @Roles('admin')
     @Delete(':id') 
     deleteFoodById(
         @GetUser('id') userId: number,
