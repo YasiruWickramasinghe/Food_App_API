@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsIn,
   IsNotEmpty,
   IsString,
 } from 'class-validator';
@@ -17,6 +18,14 @@ export class SignupDto {
   @IsString()        
   @IsNotEmpty()      
   password: string;  
+
+  
+  @IsString()        
+  @IsNotEmpty()  
+  // value must be a user or admin. 
+  @IsIn(['user','admin'])   
+  //set defoult value to user
+  userRole: string = 'user'; 
 
   @IsString()        
   @IsNotEmpty()      
