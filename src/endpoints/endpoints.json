@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "a993b82e-735c-4b7f-8816-e22ec522ec5c",
+		"name": "NestJS - Food APP API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28208456"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"john@gmail.com\",\r\n    \"password\": \"john@99\",\r\n    \"userRole\": \"admin\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Deo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"john@gmail.com\",\r\n    \"password\": \"john@99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit User",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoia2FzdW5AZ21haWwuY29tIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE2OTE3NTM2MDgsImV4cCI6MTY5MTc1NDUwOH0.PtxTnQqR2owlSXvLNzT6q7hT71Rvv5e8hecXKpDQTm8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"harry@gmail.com\",\r\n    \"password\": \"harry@99\",\r\n    \"userRole\": \"user\",\r\n    \"firstName\": \"harry\",\r\n    \"lastName\": \"tector\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzQwMiwiZXhwIjoxNjkxNzU0MzAyfQ.bjjBRDxGAAR7o31gjv5-dXCbSxZlREVw0A8OHf5ASzA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzQwMiwiZXhwIjoxNjkxNzU0MzAyfQ.bjjBRDxGAAR7o31gjv5-dXCbSxZlREVw0A8OHf5ASzA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Food",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidmlraUBnbWFpbC5jb20iLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTY5MTc1MzgxMywiZXhwIjoxNjkxNzU0NzEzfQ.zaPq1yHrRxeU69tJ48s0zNghasKlOEsIbY_w2Qa3ygM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"foodName\" : \"meal\",\r\n  \"description\": \"eat this food\",\r\n  \"price\": 1540\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/foods",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"foods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All  Food",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzkzOCwiZXhwIjoxNjkxNzU0ODM4fQ.uBa7-G1JlIQaDjrtqkV1N58pkvhvfqbSKE9-ic9ghVg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/foods",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"foods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Food by Specific User Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzkzOCwiZXhwIjoxNjkxNzU0ODM4fQ.uBa7-G1JlIQaDjrtqkV1N58pkvhvfqbSKE9-ic9ghVg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/foods/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"foods",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Food by Food  Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzkzOCwiZXhwIjoxNjkxNzU0ODM4fQ.uBa7-G1JlIQaDjrtqkV1N58pkvhvfqbSKE9-ic9ghVg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/foods/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"foods",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Food by Id",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzkzOCwiZXhwIjoxNjkxNzU0ODM4fQ.uBa7-G1JlIQaDjrtqkV1N58pkvhvfqbSKE9-ic9ghVg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"foodName\" : \"Chicken\",\r\n  \"description\": \"eat this food\",\r\n  \"price\": 3510\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/foods/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"foods",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Foodby Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoieWFzaXJ1QGdtYWlsLmNvbSIsInJvbGVzIjpbImFkbWluIl0sImlhdCI6MTY5MTc1MzkzOCwiZXhwIjoxNjkxNzU0ODM4fQ.uBa7-G1JlIQaDjrtqkV1N58pkvhvfqbSKE9-ic9ghVg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/foods/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"foods",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
