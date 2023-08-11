@@ -9,6 +9,10 @@ MySQL + Docker container
 Prisma ORM
 JWT + PassportJS
 
+## API Endpoint 
+
+Please utilize the src/endpoints/endpoints.json file directory to read and validate the provided endpoints.
+
 ## Setup MySQL or Postgre
 
 1. change docker-compose.yml file

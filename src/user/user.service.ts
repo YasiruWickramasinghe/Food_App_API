@@ -8,6 +8,7 @@ import { User } from '@prisma/client';
 export class UserService {
   constructor(private prisma: PrismaService) { }
 
+  // Retrieve all users with specific fields selected.
   getAllUsers() {
     return this.prisma.user.findMany({
       select: {
@@ -17,13 +18,39 @@ export class UserService {
         email: true,
         userRole: true,
         firstName: true,
-        lastName: true,        
+        lastName: true,
       },
     });
   }
 
+  // Retrieve user data by user ID with specific fields selected.
+  async getUserById(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        email: true,
+        userRole: true,
+        firstName: true,
+        lastName: true,
+      },
+    });
+
+    if (!user) {
+      // Throw a NotFoundException if user is not found.
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  // Edit user details based on user ID and DTO.
   async editUser(
-    loggedInUser: User, // Correctly typed user object
+    loggedInUser: User,
     userId: number,
     dto: EditUserDto,
   ) {
@@ -34,16 +61,20 @@ export class UserService {
     });
 
     if (!userToUpdate) {
+      // Throw a NotFoundException if user is not found.
       throw new NotFoundException('User not found');
     }
 
-    // Check if the logged-in user is admin or is updating their own details
+    // Check if the logged-in user is authorized to edit the target user.
     if (loggedInUser.userRole !== 'admin' && loggedInUser.id !== userId) {
+      // Throw an UnauthorizedException if the logged-in user is not authorized.
       throw new UnauthorizedException('You are not authorized to edit this user');
     }
 
+    // Hash the provided password using Argon2.
     const hash = await argon.hash(dto.password);
 
+    // Update the user's details and store the updated user data.
     const updatedUser = await this.prisma.user.update({
       where: {
         id: userId,
@@ -56,6 +87,7 @@ export class UserService {
       },
     });
 
+    // Delete the hash from the response for security reasons.
     delete updatedUser.hash;
 
     return updatedUser;
